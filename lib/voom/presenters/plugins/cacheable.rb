@@ -1,4 +1,5 @@
 require_relative 'cacheable/component'
+require_relative 'cacheable/mixins/cache_store'
 
 module Voom
   module Presenters
@@ -7,7 +8,8 @@ module Voom
 
         class Settings
           extend Dry::Configurable
-          setting :cache_func, defined?(Rails) ? Rails.cache.method(:fetch) : nil
+          # A cache needs to respond to fetch(key, &block) and exist?(key)
+          setting :cache, defined?(Rails) ? Rails.cache : nil
         end
 
         module DSLComponents
@@ -17,11 +19,12 @@ module Voom
         end
 
         module WebClientComponents
+          include Mixins::CacheStore
           def render_cacheable(comp, render:, components:, index:)
             render_proc = Proc.new { render.call :erb, :'components/render', locals: { components: comp.components, scope: nil } }
 
-            if cache_func = Settings.config.cache_func
-              cache_func.call comp.cache_key, &render_proc
+            if cache_store
+              cache_store.fetch comp.cache_key, comp.attribs, &render_proc
             else
               render_proc.call
             end

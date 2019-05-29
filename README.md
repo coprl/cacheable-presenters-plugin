@@ -25,7 +25,7 @@ end
 ## Configuration
 
 The cache function can be set to work with an apps implementation of
-caching.  The function must take the key as an argument and a block
+caching.  The function must take the key, options as arguments and a block
 for when there is a cache miss.
 
 With Rails it will default to:

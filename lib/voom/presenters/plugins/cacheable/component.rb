@@ -1,5 +1,6 @@
 require 'voom/presenters/dsl/components/base'
 require 'voom/presenters/pluggable'
+require_relative 'mixins/cache_store'
 
 gem_dir = Gem::Specification.find_by_name('voom-presenters').gem_dir
 mixins_dir = File.join(gem_dir, 'lib', 'voom', 'presenters', 'dsl', 'components', 'mixins')
@@ -14,9 +15,13 @@ module Voom
       module Cacheable
 
         class Component < DSL::Components::Base
+          include Mixins::CacheStore
           DSL::Components::Mixins.constants(false).each do |mixin|
             const = DSL::Components::Mixins.const_get(mixin)
-            include const if const.is_a?(Module)
+            if const.is_a?(Module)
+              include Mixins::CacheStore
+              include const
+            end
           end
 
           extend Pluggable
@@ -30,14 +35,18 @@ module Voom
             @components = []
             @cache_key = build_cache_key(key_or_collection)
 
-            expand!
+            if cache_store
+              expand! unless cache_store.exist?(@cache_key)
+            else
+              expand!
+            end
           end
 
           private
 
           def build_cache_key(key)
             if key.respond_to?(:map)
-              key.map { |k| build_cache_key(k) }.join('-')
+              key.map {|k| build_cache_key(k)}.join('-')
             elsif key.respond_to?(:cache_key)
               key.cache_key
             else
