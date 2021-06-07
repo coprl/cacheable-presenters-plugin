@@ -1,6 +1,6 @@
 # Cacheable Presenter Plugin
 
-A plugin for [COPRL](http://github.com/coprl/coprl) the russian doll / fragment caching of pom views
+A [COPRL](http://github.com/coprl/coprl) presenter plugin for Russian doll / fragment caching of pom views
 
 ## Installation
 
