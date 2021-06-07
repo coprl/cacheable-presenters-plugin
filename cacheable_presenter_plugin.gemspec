@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Chris Marques', 'Russell Edens']
   spec.email         = ['russell@voomify.com']
 
-  spec.summary       = %q{A COPRL presenter plugin for Russian doll / fragment caching of POM objects and views.}
+  spec.summary       = %q{A COPRL presenter plugin for Russian doll / fragment caching of POM objects and views}
   spec.homepage      = 'http://github.com/coprl/cacheable_presenter_plugin'
   spec.license       = 'MIT'
 
