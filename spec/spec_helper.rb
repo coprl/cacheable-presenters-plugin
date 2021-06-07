@@ -1,13 +1,13 @@
-require 'voom/presenters'
+require 'coprl'
 
 def load_presenters(dir, root)
-  Voom::Presenters::App.load(dir.to_s, root)
+  Coprl::Presenters::App.load(dir.to_s, root)
 end
 
 def reset_presenters!
-  Voom::Presenters::App.reset!
+  Coprl::Presenters::App.reset!
 end
 
 def find_pom_by_key(key)
-  Voom::Presenters::App[key].call.expand(router: nil)
+  Coprl::Presenters::App[key].call.expand(router: nil)
 end

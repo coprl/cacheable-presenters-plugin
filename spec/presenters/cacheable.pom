@@ -1,7 +1,7 @@
 require 'ostruct'
-require 'voom/presenters/plugins/cacheable'
+require 'coprl/presenters/plugins/cacheable'
 
-Voom::Presenters.define(:simple_cache_key) do
+Coprl::Presenters.define(:simple_cache_key) do
   plugin :cacheable
 
   cache :remember_me do
@@ -9,7 +9,7 @@ Voom::Presenters.define(:simple_cache_key) do
   end
 end
 
-Voom::Presenters.define(:complex_cache_key) do
+Coprl::Presenters.define(:complex_cache_key) do
   plugin :cacheable
 
   helpers do

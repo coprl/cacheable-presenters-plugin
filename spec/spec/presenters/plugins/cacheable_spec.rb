@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-require 'voom/presenters/plugins/cacheable'
+require 'coprl/presenters/plugins/cacheable'
 
-describe Voom::Presenters::Plugins::Cacheable do
+describe Coprl::Presenters::Plugins::Cacheable do
   before do
     load_presenters :presenters, File.expand_path('../../../../', __FILE__)
   end

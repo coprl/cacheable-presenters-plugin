@@ -1,15 +1,15 @@
-require_relative 'cacheable/component'
-require_relative 'cacheable/mixins/cache_store'
+require_relative 'component'
+require_relative '../../../presenters/plugins/cacheable/mixins/cache_store'
 
-module Voom
+module Coprl
   module Presenters
     module Plugins
       module Cacheable
 
         class Settings
           extend Dry::Configurable
-          # A cache needs to respond to fetch(key, &block) and exist?(key)
-          setting :cache, defined?(Rails) ? Rails.cache : nil
+          # A cache needs to respond to fetch(key, &block) and exist?(key) or has_key?(key)
+          setting :cache, defined?(::Rails) ? ::Rails.cache : nil
         end
 
         module DSLComponents

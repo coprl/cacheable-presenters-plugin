@@ -1,15 +1,15 @@
-require 'voom/presenters/dsl/components/base'
-require 'voom/presenters/pluggable'
-require_relative 'mixins/cache_store'
+require 'coprl/presenters/dsl/components/base'
+require 'coprl/presenters/pluggable'
+require_relative '../../../../coprl/presenters/plugins/cacheable/mixins/cache_store'
 
-gem_dir = Gem::Specification.find_by_name('voom-presenters').gem_dir
-mixins_dir = File.join(gem_dir, 'lib', 'voom', 'presenters', 'dsl', 'components', 'mixins')
+gem_dir = Gem::Specification.find_by_name('coprl').gem_dir
+mixins_dir = File.join(gem_dir, 'lib', 'coprl', 'presenters', 'dsl', 'components', 'mixins')
 
 Dir[File.join(mixins_dir, '*.rb')].each do |file|
   require File.join(mixins_dir, File.basename(file, File.extname(file)))
 end
 
-module Voom
+module Coprl
   module Presenters
     module Plugins
       module Cacheable
@@ -36,13 +36,18 @@ module Voom
             @cache_key = build_cache_key(key_or_collection)
 
             if cache_store
-              expand! unless cache_store.exist?(@cache_key)
+              expand! unless key_exists?(@cache_key)
             else
               expand!
             end
           end
 
           private
+
+          def key_exists?(key)
+            # Support both exists? (Rails::Cache) and has_key? (Concurrent::Hash)
+            cache_store.respond_to?(:exists?) ? cache_store.exist?(key) : cache_store.has_key?(key)
+          end
 
           def build_cache_key(key)
             if key.respond_to?(:map)
