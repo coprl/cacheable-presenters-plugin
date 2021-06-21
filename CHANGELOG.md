@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/coprl/cacheable_presenter_plugin/compare/v1.0.0...v1.0.1) (2021-06-21)
+
+
+### Bug Fixes
+
+* typo in respond to check ([7e3f839](https://github.com/coprl/cacheable_presenter_plugin/commit/7e3f8394ea2da174a40361243a7583a6cc234a30))
+
 # 1.0.0 (2021-06-07)
 
 
