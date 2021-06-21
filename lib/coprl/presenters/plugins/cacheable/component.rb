@@ -46,7 +46,7 @@ module Coprl
 
           def key_exists?(key)
             # Support both exists? (Rails::Cache) and has_key? (Concurrent::Hash)
-            cache_store.respond_to?(:exists?) ? cache_store.exist?(key) : cache_store.has_key?(key)
+            cache_store.respond_to?(:exist?) ? cache_store.exist?(key) : cache_store.has_key?(key)
           end
 
           def build_cache_key(key)
