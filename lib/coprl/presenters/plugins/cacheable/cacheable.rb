@@ -9,7 +9,7 @@ module Coprl
         class Settings
           extend Dry::Configurable
           # A cache needs to respond to fetch(key, &block) and exist?(key) or has_key?(key)
-          setting :cache, defined?(::Rails) ? ::Rails.cache : nil
+          setting :cache, default: defined?(::Rails) ? ::Rails.cache : nil
         end
 
         module DSLComponents
